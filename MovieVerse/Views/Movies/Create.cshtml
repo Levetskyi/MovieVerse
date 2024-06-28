@@ -1,0 +1,142 @@
+﻿@model NewMovieVM
+@using MovieVerse.Data.Enums
+
+
+<div class="create-movie-container">
+
+    <div class="box-1">
+        <div class="image-container">
+            <img id="PicturePreview" class="hero-image" src="" alt="Movie Poster"/>
+        </div>
+    </div>
+
+    <form asp-action="Create" class="box-2">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="column">
+
+            <div class="form-group">
+                <label asp-for="PosterImageURL" class="control-label">Poster URL</label>
+
+            <div class="input-group">
+                <input asp-for="PosterImageURL" class="form-control" id="imageUrlInput" placeholder="Enter movie poster URL" />
+                <button type="button" id="pasteButton" class="paste-btn">Paste</button>
+            </div>
+                    
+                <span asp-validation-for="PosterImageURL" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" placeholder="Enter movie name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <select asp-for="Category" class="form-control" placeholder="Select movie category" asp-items="Html.GetEnumSelectList<MovieCategory>()"> </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LongDescription" class="control-label">Description</label>
+                <textarea asp-for="LongDescription" class="form-control" placeholder="Enter movie description"></textarea>
+                <span asp-validation-for="LongDescription" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" type="number" value="@DateTime.Now.Year" placeholder="Enter release year" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Country" class="control-label"></label>
+                <input asp-for="Country" class="form-control" placeholder="Select country" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Language" class="control-label"></label>
+                <input asp-for="Language" class="form-control" placeholder="Select language" />
+                <span asp-validation-for="Language" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label">Start date</label>
+                <input asp-for="StartDate" class="form-control" type="date" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label">End date</label>
+                <input asp-for="EndDate" class="form-control" type="date" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Duration" class="control-label"></label>
+                <input asp-for="Duration" class="form-control" type="number" placeholder="Enter movie duration" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CinemaId" class="control-label">Cinema</label>
+                <select asp-for="CinemaId" class="form-control" multiple asp-items="ViewBag.Cinemas"> </select>>
+                <span asp-validation-for="CinemaId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AgeRating" class="control-label">Age Rating</label>
+                <input asp-for="AgeRating" class="form-control" />
+                <span asp-validation-for="AgeRating" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" type="number" placeholder="Set movie price" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="buttons">
+
+                <a class="btn btn-secondary" asp-action="List">Back</a>
+
+                <input type="submit" value="Create" class="btn btn-success float-right" />
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById("PicturePreview");
+            output.src = $("#imageUrlInput").val();
+        })
+
+        $("#imageUrlInput").on("change", function () {
+            var output = document.getElementById("PicturePreview");
+            output.src = $(this).val();
+        })
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const pasteButton = document.getElementById('pasteButton');
+            const imageUrlInput = document.getElementById('imageUrlInput');
+
+            pasteButton.addEventListener('click', async () => {
+                try {
+                    const text = await navigator.clipboard.readText();
+                    imageUrlInput.value = text;
+                } catch (err) {
+                    console.error('Failed to read clipboard contents: ', err);
+                }
+            });
+        });
+    </script>
+}
