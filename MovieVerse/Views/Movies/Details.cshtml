@@ -44,7 +44,7 @@
             </div>
 
             <div class="buy">
-                <a class="list-item">Add to cart</a>
+                <a class="list-item" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id">Add to cart</a>
             </div>
 
         </div>

@@ -3,6 +3,7 @@ using FluentValidation.AspNetCore;
 using MovieVerse.Data.Services;
 using MovieVerse.Data;
 using FluentValidation;
+using MovieVerse.Data.Cart;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,12 @@ builder.Services.AddScoped<IActorsService, ActorsService>();
 builder.Services.AddScoped<IProducersService, ProducersService>();
 builder.Services.AddScoped<ICinemasService, CinemasService>();
 builder.Services.AddScoped<IMovieService, MoviesService>();
+builder.Services.AddScoped<IOrdersService, OrdersService>();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+
+builder.Services.AddSession();
 
 
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
@@ -35,6 +42,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthorization();
 
