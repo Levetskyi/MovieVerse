@@ -1,0 +1,136 @@
+﻿section {
+    padding-top: 25px;
+    width: 100%;
+    height: 80vh;
+    background: #171717;
+    border-radius: 0;
+}
+
+.swiper-slide .image {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.swiper-slide .image .black .watch i {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    text-align: center;
+    background-color: #ffe100;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.swiper-slide .image .black .watch p {
+    margin-left: 15px;
+    font-family: "Fira Sans";
+}
+
+
+.swiper {
+    width: 90%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.swiper::selection {
+    user-select: none;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide .image .black {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.0), rgba(0,0,0,0.9));
+}
+
+.swiper-slide .image .black h1 {
+    font-size: 30px;
+    text-align: left;
+    position: relative;
+    top: 60%;
+    left: 5%;
+    color: #fff;
+}
+
+.swiper-slide .image .black .star {
+    color: #ffd500;
+    text-align: left;
+    font-size: 16px;
+    margin: 10px 0;
+    position: relative;
+    top: 60%;
+    left: 5%;
+}
+
+.swiper-slide .image .black p {
+    width: 550px; 
+    text-align: justify;
+    font-size: 16px;
+    color: #cccccc;
+    margin: 10px 0;
+    position: relative;
+    top: 60%;
+    left: 5%;
+    line-height: 23px;
+    font-family: 'Fira Sans';
+}
+
+.swiper-slide .image .black .genre {
+    text-align: left;
+    font-size: 16px;
+    margin: 13px 0;
+    position: relative;
+    top: 60%;
+    left: 5%;
+}
+
+.swiper-slide .image .black .genre span.category {
+    background: #282931;
+    text-decoration: none;
+    color: #cccccc;
+    padding: 2px 7px;
+}
+
+.swiper-slide .image .black .watch {
+    width: 50px;
+    height: 25px;
+    text-align: left;
+    font-size: 16px;
+    margin: 23px 0;
+    position: relative;
+    top: 60%;
+    left: 5%;
+}
+
+.swiper-slide .image .black .watch a {
+    background: #282931;
+    text-decoration: none;
+    color: #ffd500;
+    padding: 5px 25px;
+    cursor: pointer;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: none;
+}
+
+.swiper {
+    margin-left: auto;
+    margin-right: auto;
+}

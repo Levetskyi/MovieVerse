@@ -1,0 +1,124 @@
+﻿@model Movie
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<link rel="stylesheet" href="~/css/footer.css" />
+<link rel="stylesheet" href="~/css/movie-details.css" />
+
+<div class="hero-section">
+
+    <div class="image-container"><img class="hero-image" src="@Model.PosterImageURL"/></div>
+        
+
+    <div class="description-section">
+
+        <h1 class="movie-title">@Model.Name</h1>
+
+        <div class="movie-details">
+
+            <div class="category">
+                <p>@Model.Category</p>
+            </div>
+
+            <div class="description">
+                <p>@Model.LongDescription</p>
+            </div>
+                
+            <p class="list-item">Year: @Model.Year</p>
+
+            <p class="list-item">Country: @Model.Country</p>
+
+            <p class="list-item">Language: @Model.Language</p>
+
+            <p class="list-item">Start: @Model.StartDate.ToString("dd-MM-yyyy")</p>
+
+            <p class="list-item">End: @Model.EndDate.ToString("dd-MM-yyyy")</p>
+
+            <p class="list-item">Duration: @Model.Duration min</p>
+
+            <p class="list-item">Age rating: @Model.AgeRating +</p>
+
+            <div class="price">
+                <p class="list-item">Price: @Model.Price $</p>
+            </div>
+
+            <div class="confirmation" style="color: #fff; font-size: 18px; margin-top: 50px">
+                <p>Delete @Model.Name ?</p>
+                   
+            </div>
+
+            <div class="form-group" style="display: flex; gap: 12px">
+                <a class="btn btn-secondary" style="width: 100px" asp-action="List">Back</a>
+                <form asp-action="DeleteConfirmed">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Confirm" class="btn btn-danger float-right" style="width: 100px" />
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="footer">
+
+    <div class="row">
+
+        <div class="footer-col">
+
+            <h4>Company</h4>
+
+            <ul>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Our services</a></li>
+                <li><a href="#">Privacy&Policy</a></li>
+            </ul>
+
+        </div>
+
+        <div class="footer-col">
+
+            <h4>Get help</h4>
+
+            <ul>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Returns</a></li>
+                <li><a href="#">Order status</a></li>
+                <li><a href="#">Payment options</a></li>
+            </ul>
+
+        </div>
+
+        <div class="footer-col">
+
+            <h4>Categories</h4>
+
+            <ul>
+                <li><a href="#">Horror</a></li>
+                <li><a href="#">Cartoon</a></li>
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Drama</a></li>
+            </ul>
+
+        </div>
+
+        <div class="footer-col">
+
+            <h4>Follow us</h4>
+
+            <div class="social-links">
+                <a href="https://www.facebook.com/"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/levetskyi._/"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://x.com"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://www.youtube.com/"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

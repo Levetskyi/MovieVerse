@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Producer>
+
+<div class="movies-table">
+    <div class="table-header">
+
+        <p>All Producers</p>
+
+        <div class="table-options">
+            <input placeholder="Search for a producer" />
+            <a class="add-new" asp-controller="Producers" asp-action="Create">Add new</a>
+        </div>
+       
+    </div>
+
+    <div class="table-section">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Nr.</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td> <img src="@item.ProfilePictureURL" alt="poster" /></td>
+                        <td>@item.FullName</td>
+                        <td>@item.Bio</td>
+                        <td>
+                            <a class="edit" asp-action="Edit" asp-route-id="@item.Id"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a class="delete" asp-action="Delete" asp-route-id="@item.Id"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

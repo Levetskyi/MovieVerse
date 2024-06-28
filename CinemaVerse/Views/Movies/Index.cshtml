@@ -1,0 +1,126 @@
+﻿@model IEnumerable<Movie>
+
+<link rel="stylesheet" href="~/css/movie-grid.css" />
+
+@await Html.PartialAsync("/Views/Shared/_swiper.cshtml")
+
+<div class="movie_section">
+    <h4>Watch now</h4>
+</div>
+
+<div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="second">
+
+                <div class="latest">
+
+                    <div class="box">
+
+                        <div class="card">
+
+                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@item.Id">
+
+                            <div class="details">
+
+                                <div class="left">
+
+                                    <div class="info-1">
+
+                                        <p class="name">@item.Name</p>
+
+                                        <p class="category">@item.Category</p>
+
+                                    </div>
+
+                                    <div class="info-2">
+
+                                        <div class="release-date">
+                                            <i class="fa-regular fa-calendar"></i>
+                                            <p class="release-date">@item.Year</p>
+                                        </div>
+
+                                        <div class="duration">
+                                            <i class="fa-regular fa-clock"></i>
+                                            <p>@item.Duration min</p>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </a>
+                           
+                        <img class="promo_image" src="@item.PosterImageURL"></img>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+<div class="movie_section">
+    <h4>Coming soon</h4>
+</div>
+
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+        <div class="second">
+
+            <div class="latest">
+
+                <div class="box">
+
+                    <div class="card">
+
+                        <a asp-controller="Movies" asp-action="Details">
+
+                            <div class="details">
+
+                                <div class="left">
+
+                                    <div class="info-1">
+
+                                        <p class="name">@item.Name</p>
+
+                                        <p class="category">@item.Category</p>
+
+                                    </div>
+
+                                    <div class="info-2">
+
+                                        <div class="release-date">
+                                            <i class="fa-regular fa-calendar"></i>
+                                            <p class="release-date">2023</p>
+                                        </div>
+
+                                        <div class="duration">
+                                            <i class="fa-regular fa-clock"></i>
+                                            <p>120min</p>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </a>
+
+
+                        <img class="promo_image" src="@item.PosterImageURL"></img>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

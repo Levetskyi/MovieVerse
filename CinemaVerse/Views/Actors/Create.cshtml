@@ -1,0 +1,86 @@
+﻿@model Actor
+
+@{
+    ViewData["Title"] = "Create actor";
+}
+
+<div class="wrapper">
+
+    <div class="container">
+
+        <h1 class="page-header">Create an actor</h1>
+
+        
+        <div class="image-container">
+            <img id="PicturePreview" class="hero-image" src="" alt="Actor Logo" />
+        </div>
+        
+
+        <form asp-action="Create" class="box-2">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="ProfilePictureURL" class="control-label">Profile Picture URL</label>
+
+                    <div class="input-group">
+                    <input asp-for="ProfilePictureURL" class="form-control" id="imageUrlInput" placeholder="Enter profile picture URL" />
+                        <button type="button" id="pasteButton" class="paste-btn">Paste</button>
+                    </div>
+
+                <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" placeholder="Enter actor name" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Bio" class="control-label">Description</label>
+                <textarea asp-for="Bio" class="form-control" placeholder="Enter actor description"></textarea>
+                <span asp-validation-for="Bio" class="text-danger"></span>
+                </div>
+
+                <div class="buttons">
+
+                    <a class="btn btn-secondary" asp-action="Index">Back</a>
+
+                    <input type="submit" value="Create" class="btn btn-success float-right" />
+                </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById("PicturePreview");
+            output.src = $("#imageUrlInput").val();
+        })
+
+        $("#imageUrlInput").on("change", function () {
+            var output = document.getElementById("PicturePreview");
+            output.src = $(this).val();
+        })
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const pasteButton = document.getElementById('pasteButton');
+            const imageUrlInput = document.getElementById('imageUrlInput');
+
+            pasteButton.addEventListener('click', async () => {
+                try {
+                    const text = await navigator.clipboard.readText();
+                    imageUrlInput.value = text;
+                } catch (err) {
+                    console.error('Failed to read clipboard contents: ', err);
+                }
+            });
+        });
+    </script>
+}

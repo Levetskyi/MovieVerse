@@ -1,0 +1,54 @@
+﻿@model Movie
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<link rel="stylesheet" href="~/css/movie.css" asp-append-version="true" />
+
+<div class="hero-section">
+
+    <div class="image-container"><img class="hero-image" src="@Model.PosterImageURL"/></div>
+        
+
+    <div class="description-section">
+
+        <h1 class="movie-title">@Model.Name</h1>
+
+        <div class="movie-details">
+
+            <div class="category">
+                <p>@Model.Category</p>
+            </div>
+
+            <div class="description">
+                <p>@Model.LongDescription</p>
+            </div>
+                
+            <p class="list-item">Year: @Model.Year</p>
+
+            <p class="list-item">Country: @Model.Country</p>
+
+            <p class="list-item">Language: @Model.Language</p>
+
+            <p class="list-item">Start: @Model.StartDate.ToString("dd-MM-yyyy")</p>
+
+            <p class="list-item">End: @Model.EndDate.ToString("dd-MM-yyyy")</p>
+
+            <p class="list-item">Duration: @Model.Duration min</p>
+
+            <p class="list-item">Age rating: @Model.AgeRating +</p>
+
+            <div class="price">
+                <p class="list-item">Price: @Model.Price $</p>
+            </div>
+
+            <div class="buy">
+                <a class="list-item">Add to cart</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

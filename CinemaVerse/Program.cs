@@ -1,6 +1,25 @@
+using Microsoft.EntityFrameworkCore;
+using FluentValidation.AspNetCore;
+using CinemaVerse.Data.Services;
+using CinemaVerse.Data;
+using FluentValidation;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnectionString")));
+
+builder.Services.AddScoped<IActorsService, ActorsService>();
+builder.Services.AddScoped<IProducersService, ProducersService>();
+builder.Services.AddScoped<ICinemasService, CinemasService>();
+builder.Services.AddScoped<IMovieService, MoviesService>();
+
+
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -9,7 +28,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -23,5 +41,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+/*AppDbInitializer.Seed(app);*/
 
 app.Run();

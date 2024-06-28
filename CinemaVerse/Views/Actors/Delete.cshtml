@@ -1,0 +1,70 @@
+﻿@model Actor
+
+@{
+    ViewData["Title"] = "Delete actor";
+}
+
+<div class="wrapper">
+
+    <div class="container">
+
+        <h1 class="page-header">Delete @Model.FullName</h1>
+
+        
+        <div class="image-container">
+            <img id="PicturePreview" class="hero-image" src="" alt="Actor Logo" />
+        </div>
+        
+
+        <form asp-action="DeleteConfirmed" class="box-2">
+            <input type="hidden" asp-for="Id" />
+
+                <div class="form-group">
+                    <label asp-for="ProfilePictureURL" class="control-label">Cinema Logo URL</label>
+
+                    <div class="input-group">
+                    <input asp-for="ProfilePictureURL" class="form-control" id="imageUrlInput" placeholder="Enter movie poster URL" readonly />
+                       
+                    </div>
+
+                <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" placeholder="Enter cinema name" readonly />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Bio" class="control-label">Description</label>
+                <textarea asp-for="Bio" class="form-control" placeholder="Enter cinema description" readonly></textarea>
+                <span asp-validation-for="Bio" class="text-danger"></span>
+                </div>
+
+                <div class="buttons">
+
+                    <a class="btn btn-secondary" asp-action="Index">Back</a>
+
+                    <input type="submit" value="Confirm" class="btn btn-success float-right" />
+                </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById("PicturePreview");
+            output.src = $("#imageUrlInput").val();
+        })
+
+        $("#imageUrlInput").on("change", function () {
+            var output = document.getElementById("PicturePreview");
+            output.src = $(this).val();
+        })
+    </script>
+}
