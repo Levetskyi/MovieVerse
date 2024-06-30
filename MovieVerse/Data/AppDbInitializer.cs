@@ -1,4 +1,6 @@
-﻿using MovieVerse.Data.Enums;
+﻿using Microsoft.AspNetCore.Identity;
+using MovieVerse.Data.Enums;
+using MovieVerse.Data.Static;
 using MovieVerse.Models;
 
 namespace MovieVerse.Data
@@ -159,6 +161,66 @@ namespace MovieVerse.Data
 
                     context.SaveChanges();
                 }*/
+            }
+        }
+
+        public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
+        {
+            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+            {
+                //Roles
+                var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                if(!await roleManager.RoleExistsAsync(UserRoles.Admin))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+                }
+
+                if (!await roleManager.RoleExistsAsync(UserRoles.User))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+                }
+
+                //Users
+                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+                string adminUserEmail = "admin@movieverse.com";
+
+                var adminUser = await userManager.FindByEmailAsync(adminUserEmail);
+
+                if (adminUser == null)
+                {
+                    var newAdminUser = new ApplicationUser()
+                    {
+                        FullName = "Admin user",
+                        UserName = "Admin-User",
+                        Email = adminUserEmail,
+                        EmailConfirmed = true,
+                    };
+
+                    await userManager.CreateAsync(newAdminUser, "gelazo04");
+                    await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin); 
+                }
+
+                //Users
+
+                string appUserEmail = "user@movieverse.com";
+
+                var appnUser = await userManager.FindByEmailAsync(appUserEmail);
+
+                if (appnUser == null)
+                {
+                    var newAppUser = new ApplicationUser()
+                    {
+                        FullName = "Appliction user",
+                        UserName = "App-User",
+                        Email = appUserEmail,
+                        EmailConfirmed = true,
+                    };
+
+                    await userManager.CreateAsync(newAppUser, "gelazo04");
+                    await userManager.AddToRoleAsync(newAppUser, UserRoles.User);
+                }
             }
         }
     }

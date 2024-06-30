@@ -38,7 +38,7 @@
                         <td class="align-middle">@item.Amount</td>
                         <td class="align-middle">@item.Movie.Name</td>
                         <td class="align-middle">@item.Movie.Price.ToString("c")</td>
-                        <td class="align-middle">@((item.Amount*item.Movie.Price).ToString("c"))</td>
+                        <td class="align-middle">@((item.Amount * item.Movie.Price).ToString("c"))</td>
                         <td class="align-middle">
 
                             <a class="text-danger" asp-controller="Orders" asp-action="RemoveItemFromShoppingCart" asp-route-id="@item.Movie.Id">
@@ -72,9 +72,15 @@
 
         </table>
 
-        <div class="text-center">
+        <div class="text-right" style="color: #fff">
 
             <div class="btn-group">
+
+                @* <a class="btn btn-primary" asp-controller="Orders" asp-action="CompleteOrder">Complete Order</a> *@
+
+                <div id="paypal-btn"></div>
+
+                <div style="margin: 10px"></div>
 
                 <a class="btn btn-success" asp-controller="Movies" asp-action="Index">Add more items</a>
 
@@ -85,3 +91,60 @@
     </div>
 
 </div>
+
+@section Scripts{
+
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+    <script>
+
+        let _total = @Html.Raw(@Model.ShoppingCartTotal);
+
+        paypal.Button.render({
+
+            //Configure enviroment
+
+            env: "sandbox",
+            client: {
+                sandbox: "AfPdbV3LiyvavyZIxHUJupEVyn-QVcmtBHmWzD3j_DA8Ftq_eLGnRUkW0yopbdSc6pBI8ypeyGqF10Xi"
+            },
+
+            //Customize button
+
+            local: "en_US",
+            style: {
+                size: "medium",
+                color: "gold",
+                shape: "rect"
+            },
+
+            commit: true,
+
+            //Set up payment
+            payment: function (data, actions) {
+                return actions.payment.create({
+                    transactions: [{
+                        amount: {
+                            total: _total,
+                            currency: "PLN"
+                        }
+                    }]
+                });
+            },
+
+
+            //Execute payment
+            onAuthorize: function (data, actions) {
+                return actions.payment.execute().then(function () {
+                    var url = "@Url.Action("CompleteOrder", "Orders", new { })";
+                    window.location.href = url;
+                });
+            }
+
+
+        }, "#paypal-btn");
+
+    </script>
+}
+
+    

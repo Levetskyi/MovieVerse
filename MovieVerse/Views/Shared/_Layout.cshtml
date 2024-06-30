@@ -83,6 +83,23 @@
                     @await Component.InvokeAsync("ShoppingCartSummary")
                 </ul>
 
+                <ul class="navbar-nav ms-auto right" style="background-color: darkgreen">
+
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-user" style="margin-right: 10px"></i>  Hello User
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-controller="Orders" asp-action="List">
+                                <i class="fa-regular fa-rectangle-list" style="margin-right: 10px"></i>Orders
+                            </a>
+                        </div>
+
+                    </li>
+                </ul>
+
             </div>
 
         </div>

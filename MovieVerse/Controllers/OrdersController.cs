@@ -9,11 +9,21 @@ namespace MovieVerse.Controllers
     {
         private readonly IMovieService _moviesService;
         private readonly ShoppingCart _shoppingCart;
+        private readonly IOrdersService _ordersService;
 
-        public OrdersController(IMovieService movieService, ShoppingCart shoppingCart) 
+        public OrdersController(IMovieService movieService, ShoppingCart shoppingCart, IOrdersService ordersService) 
         { 
             _moviesService = movieService;
             _shoppingCart = shoppingCart;
+            _ordersService = ordersService;
+        }
+
+        public async Task<IActionResult> List()
+        {
+            string userId = "";
+            var orders = await _ordersService.GetOrdersByUserIdAsync(userId);
+
+            return View(orders);
         }
 
         public IActionResult Index()
@@ -54,6 +64,19 @@ namespace MovieVerse.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> CompleteOrder()
+        {
+            var items = _shoppingCart.GetShoppingCartItems();
+            string userId = "";
+            string userEmail = "";
+
+            await _ordersService.StoreOrderAsync(items, userId, userEmail);
+
+            await _shoppingCart.ClearCartAsync();
+
+            return View();
         }
     }
 }

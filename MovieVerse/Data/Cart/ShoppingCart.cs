@@ -80,5 +80,15 @@ namespace MovieVerse.Data.Cart
 
             return total;
         }
+
+        public async Task ClearCartAsync()
+        {
+            var items = await _context.ShoppingCartItems.Where(
+                n => n.ShopoingCartId == ShoppingCartId).ToListAsync();
+
+            _context.ShoppingCartItems.RemoveRange(items);
+
+            await _context.SaveChangesAsync();
+        }
     }
 }
